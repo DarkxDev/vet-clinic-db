@@ -12,6 +12,6 @@ CREATE TABLE animals(
     name varchar,
     date_of_birth date,
     escape_attempts int,
-    neutered bit,
+    neutered boolean,
     weight_kg decimal
 );
