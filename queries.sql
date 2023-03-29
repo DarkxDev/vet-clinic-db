@@ -88,4 +88,43 @@ SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals GROUP BY species;
 SELECT species, AVG(escape_attempts) FROM animals
   WHERE date_of_birth BETWEEN '1990-01-01' AND '2001-01-01'
   GROUP BY species;
-  
+
+/* Multiple Tables */
+
+SELECT animals.name FROM animals
+  JOIN owners ON animals.owner_id = owners.id
+  WHERE owners.full_name = 'Melody Pond';
+
+SELECT name
+FROM animals
+JOIN (
+  SELECT id
+  FROM species
+  WHERE name = 'Pokemon'
+) AS pokemon ON animals.species_id = pokemon.id;
+
+SELECT owners.full_name, animals.name
+  FROM owners
+  LEFT JOIN animals ON owners.id = animals.owner_id;
+
+SELECT species.name, COUNT(animals.id) FROM species
+  LEFT JOIN animals ON species.id = animals.species_id
+  GROUP BY species.name;
+
+SELECT animals.name 
+  FROM animals 
+  JOIN species ON animals.species_id = species.id 
+  JOIN owners ON animals.owner_id = owners.id 
+  WHERE species.name = 'Digimon' AND owners.full_name = 'Jennifer Orwell';
+
+SELECT animals.name 
+  FROM animals 
+  JOIN owners ON animals.owner_id = owners.id 
+  WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+SELECT owners.full_name, COUNT(animals.id) 
+  FROM owners 
+  LEFT JOIN animals ON owners.id = animals.owner_id 
+  GROUP BY owners.full_name 
+  ORDER BY COUNT(animals.id) DESC
+  LIMIT 1;
