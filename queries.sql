@@ -128,3 +128,69 @@ SELECT owners.full_name, COUNT(animals.id)
   GROUP BY owners.full_name 
   ORDER BY COUNT(animals.id) DESC
   LIMIT 1;
+
+/* Visits */
+
+SELECT a.name
+FROM animals a
+JOIN visits v ON a.id = v.animal_id
+JOIN vets vt ON vt.id = v.vet_id
+WHERE vt.name = 'William Tatcher'
+ORDER BY v.visit_date DESC
+LIMIT 1;
+
+SELECT COUNT(DISTINCT visits.animal_id)
+FROM visits
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez';
+
+SELECT vets.name, species.name AS specialization
+FROM vets
+LEFT JOIN specializations ON vets.id = specializations.vet_id
+LEFT JOIN species ON specializations.species_id = species.id;
+
+SELECT animals.name
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez'
+AND visits.visit_date >= '2020-04-01' AND visits.visit_date <= '2020-08-30';
+
+SELECT animals.name, COUNT(*) AS visit_count
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+GROUP BY animals.name
+ORDER BY visit_count DESC
+LIMIT 1;
+
+SELECT animals.name, visits.visit_date
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Maisy Smith'
+ORDER BY visits.visit_date ASC
+LIMIT 1;
+
+SELECT animals.name AS animal_name, vets.name AS vet_name, visits.visit_date
+FROM animals
+JOIN visits ON animals.id = visits.animal_id
+JOIN vets ON visits.vet_id = vets.id
+WHERE visits.visit_date = (SELECT MAX(visit_date) FROM visits)
+LIMIT 1;
+
+SELECT COUNT(*)
+FROM visits
+JOIN vets ON visits.vet_id = vets.id
+JOIN specializations ON vets.id = specializations.vet_id
+JOIN species ON specializations.species_id = species.id
+WHERE species.name = 'Dog';
+
+SELECT s.name AS species_name, COUNT(*) AS num_visits
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+JOIN specializations sp ON sp.species_id = a.species_id
+JOIN species s ON s.id = sp.species_id
+WHERE v.vet_id = 2 -- 2 is Maisy Smith's vet ID
+GROUP BY s.name
+ORDER BY num_visits DESC
+LIMIT 1;
