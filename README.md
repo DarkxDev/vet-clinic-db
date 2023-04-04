@@ -38,7 +38,7 @@
 - **Database generated using PostgreSQL**
 - **Scheme for visualizing data base:**
 
-*Link here*
+[database schema diagram](database_schema_diagram.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -80,6 +80,10 @@ Clone this repository to your desired folder:
 Bryan Hurtado
 
 - GitHub: [@DarkxDev](https://github.com/DarkxDev)
+
+Uthman Igein Bello-Imoukhuede
+
+- GitHub: [@Uthmanbello](https://github.com/Uthmanbello)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
