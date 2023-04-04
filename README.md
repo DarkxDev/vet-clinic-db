@@ -36,6 +36,9 @@
 ### Key Features <a name="key-features"></a>
 
 - **Database generated using PostgreSQL**
+- **Scheme for visualizing data base:**
+
+*Link here*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
