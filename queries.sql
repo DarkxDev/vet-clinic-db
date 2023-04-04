@@ -194,3 +194,11 @@ WHERE v.vet_id = 2 -- 2 is Maisy Smith's vet ID
 GROUP BY s.name
 ORDER BY num_visits DESC
 LIMIT 1;
+
+/* Performance Audit */
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+
+SELECT COUNT(animal_id) FROM visits WHERE animal_id = 4;
+SELECT * FROM visits where vet_id = 2;
+SELECT * FROM owners where email = 'owner_18327@mail.com';
