@@ -65,3 +65,33 @@ CREATE TABLE visits (
     visit_date DATE NOT,
     PRIMARY KEY (animal_id, vet_id, visit_date)
 );
+
+/* Performance Audit */
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+/* Recreate table to populate with the new info */
+
+DROP TABLE visits;
+
+CREATE TABLE visits (
+    animal_id INTEGER REFERENCES animals(id),
+    vet_id INTEGER REFERENCES vets(id),
+    visit_date DATE
+);
+
+/* Index necessary columns */
+
+CREATE INDEX animal_id_idx ON visits (animal_id);
+CREATE INDEX idx_vet_id ON visits (vet_id);
+CREATE INDEX owner_email_idx ON owners (email);
+
+/* Delete duplicated data from visits table */
+
+DELETE FROM visits
+WHERE (vet_id, animal_id, visit_date) NOT IN (
+    SELECT vet_id, animal_id, MIN(visit_date)
+    FROM visits
+    WHERE vet_id = 2
+    GROUP BY vet_id, animal_id
+);
